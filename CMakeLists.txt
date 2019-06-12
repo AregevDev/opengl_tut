@@ -3,7 +3,7 @@ project(opengl_tut)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(opengl src/main.cpp)
+add_executable(opengl src/main.cpp src/vertexbuffer.cpp src/vertexbuffer.h src/indexbuffer.cpp src/indexbuffer.h)
 target_include_directories(opengl PRIVATE C:\\users\\AregevDev\\.libs\\include)
 target_link_directories(opengl PRIVATE C:\\users\\AregevDev\\.libs\\lib)
 

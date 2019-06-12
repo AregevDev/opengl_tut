@@ -4,6 +4,8 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+#include "vertexbuffer.h"
+#include "indexbuffer.h"
 
 const int VERT_COUNT = 4;
 const int IND_COUNT = 6;
@@ -33,7 +35,7 @@ static void CheckShaders(GLuint shader) {
     }
 }
 
-void resizeCallback(GLFWwindow *_window, int width, int height) {
+void resizeCallback(GLFWwindow *window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
@@ -79,12 +81,7 @@ int main() {
             -0.75f, 0.75f // 3
     };
 
-    // crate VBO
-    unsigned int vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, VERT_COUNT * COMPONENT_COUNT * sizeof(float), vertices, GL_STATIC_DRAW);
-
+    VertexBuffer vbo(vertices, VERT_COUNT * COMPONENT_COUNT * sizeof(float));
     unsigned int startIdx = 0;
     glVertexAttribPointer(startIdx, COMPONENT_COUNT, GL_FLOAT, false, sizeof(float) * COMPONENT_COUNT, nullptr);
 
@@ -95,10 +92,7 @@ int main() {
     };
 
     // create IBO
-    unsigned int ibo;
-    glGenBuffers(1, &ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, IND_COUNT * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+    IndexBuffer ibo(indices, IND_COUNT);
 
     // shaders
     // compile vertex shader
