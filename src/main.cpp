@@ -6,6 +6,7 @@
 #include <string>
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
+#include "vertexarray.h"
 
 const int VERT_COUNT = 4;
 const int IND_COUNT = 6;
@@ -52,7 +53,7 @@ int main() {
     }
 
     // crate window
-    GLFWwindow *window = glfwCreateWindow(640, 480, "window", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(500, 500, "window", nullptr, nullptr);
     if (!window) {
         std::cerr << "Could not create GLFW window" << std::endl;
         return -1;
@@ -68,12 +69,6 @@ int main() {
         return -1;
     }
 
-    // crate VAO
-    unsigned int vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-    glEnableVertexAttribArray(0);
-
     // vertex positions
     float vertices[VERT_COUNT * COMPONENT_COUNT] = {
             -0.75f, -0.75, // 0
@@ -82,15 +77,17 @@ int main() {
             -0.75f, 0.75f // 3
     };
 
-    VertexBuffer vbo(vertices, VERT_COUNT * COMPONENT_COUNT * sizeof(float));
-    unsigned int startIdx = 0;
-    glVertexAttribPointer(startIdx, COMPONENT_COUNT, GL_FLOAT, false, sizeof(float) * COMPONENT_COUNT, nullptr);
-
     // indexes
     unsigned int indices[IND_COUNT] = {
             0, 1, 2, // triangle 1
             2, 3, 0 // triangle 2
     };
+
+    VertexArray vao;
+    VertexBuffer vbo(vertices, VERT_COUNT * COMPONENT_COUNT * sizeof(float));
+    VertexBufferLayout layout;
+    layout.push<float>(COMPONENT_COUNT);
+    vao.addBuffer(vbo, layout);
 
     // create IBO
     IndexBuffer ibo(indices, IND_COUNT);
@@ -138,7 +135,7 @@ int main() {
         glfwSetWindowSizeCallback(window, resizeCallback);
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        glUniform4f(colorLocation, r, 0.3f, 0.8f, 1.0f);
+        glUniform4f(colorLocation, r, r, r, 1.0f);
         glDrawElements(GL_TRIANGLES, IND_COUNT, GL_UNSIGNED_INT, nullptr);
 
         if (r > 1.0f)
