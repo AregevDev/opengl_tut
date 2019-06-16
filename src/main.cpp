@@ -12,7 +12,7 @@ const int VERT_COUNT = 4;
 const int IND_COUNT = 6;
 const int COMPONENT_COUNT = 2;
 
-static std::string ReadFileToString(const std::string &filename) {
+static std::string readFileToString(const std::string &filename) {
     std::ifstream ifs(filename);
     std::stringstream buffer;
     std::string line;
@@ -25,7 +25,7 @@ static std::string ReadFileToString(const std::string &filename) {
     return buffer.str();
 }
 
-static void CheckShaders(GLuint shader) {
+static void checkShaders(GLuint shader) {
     int success;
     char infoLog[512];
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
@@ -95,25 +95,25 @@ int main() {
     // shaders
     // compile vertex shader
     unsigned int vertShader = glCreateShader(GL_VERTEX_SHADER);
-    std::string vertSource = ReadFileToString("shaders/triangle_v.glsl");
+    std::string vertSource = readFileToString("shaders/triangle_v.glsl");
     const char *vertStr = vertSource.c_str();
 
     glShaderSource(vertShader, 1, &vertStr, nullptr);
     glCompileShader(vertShader);
 
     // check for success compiling vertex
-    CheckShaders(vertShader);
+    checkShaders(vertShader);
 
     // compile fragment shader
     unsigned int fragShader = glCreateShader(GL_FRAGMENT_SHADER);
-    std::string fragSource = ReadFileToString("shaders/triangle_f.glsl");
+    std::string fragSource = readFileToString("shaders/triangle_f.glsl");
     const char *fragStr = fragSource.c_str();
 
     glShaderSource(fragShader, 1, &fragStr, nullptr);
     glCompileShader(fragShader);
 
     // check for success compiling fragment
-    CheckShaders(fragShader);
+    checkShaders(fragShader);
 
     // create shader program
     unsigned int shaderProgram = glCreateProgram();
