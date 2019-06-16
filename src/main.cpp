@@ -60,6 +60,7 @@ int main() {
 
     // set the window context to current
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);
 
     // load OpenGL proc addresses using Glad
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
@@ -123,16 +124,30 @@ int main() {
     glAttachShader(shaderProgram, fragShader);
     glLinkProgram(shaderProgram);
     glUseProgram(shaderProgram);
+    int colorLocation = glGetUniformLocation(shaderProgram, "u_color");
+    glUniform4f(colorLocation, 0.8f, 0.3f, 0.8f, 1.0f);
 
     glDeleteShader(vertShader);
     glDeleteShader(fragShader);
 
+    float r = 0.0f;
+    float inc = 0.05f;
+
     // main loop
     while (!glfwWindowShouldClose(window)) {
         glfwSetWindowSizeCallback(window, resizeCallback);
-        glClearColor(1.0, 1.0, 1.0, 1.0);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+        glUniform4f(colorLocation, r, 0.3f, 0.8f, 1.0f);
         glDrawElements(GL_TRIANGLES, IND_COUNT, GL_UNSIGNED_INT, nullptr);
+
+        if (r > 1.0f)
+            inc = -0.05f;
+        else if (r < 0.0f)
+            inc = 0.05f;
+
+        r += inc;
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
