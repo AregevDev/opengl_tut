@@ -3,15 +3,24 @@ project(opengl_tut)
 
 set(CMAKE_CXX_STANDARD 17)
 
+if (MSVC OR MINGW)
+	set(VCPKG_PATH C:/Users/AregevDev/.vcpkg)
+	set(TARGET_OS x64-windows-static)
+elseif (UNIX AND NOT APPLE)
+	set(VCPKG_PATH ~/vcpkg)
+	set(TARGET_OS x64-linux)	
+endif ()
+
+set(CMAKE_TOOLCHAIN_FILE ${VCPKG_PATH}/scripts/buildsystems/vcpkg.cmake)
+set(glad_DIR ~/vcpkg/installed/${TARGET_OS}/share/glad)
+set(glm_DIR ~/vcpkg/installed/${TARGET_OS}/share/glm)
+
+find_package(glfw3 CONFIG REQUIRED)
+find_package(glad CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
+
 add_executable(opengl src/main.cpp src/vertexbuffer.cpp src/vertexbuffer.h src/indexbuffer.cpp src/indexbuffer.h src/vertexarray.h src/vertexbufferlayout.h src/vertexarray.cpp src/vertexbufferlayout.cpp src/shader.cpp src/shader.h)
-target_include_directories(opengl PRIVATE C:\\users\\AregevDev\\.libs\\include)
-target_link_directories(opengl PRIVATE C:\\users\\AregevDev\\.libs\\lib)
 
 configure_file(${CMAKE_SOURCE_DIR}/shaders/triangle.glsl ${PROJECT_BINARY_DIR}/shaders/triangle.glsl COPYONLY)
 
-if (UNIX AND NOT APPLE)
-    set_target_properties(opengl PROPERTIES OUTPUT_NAME opengl.out)
-    target_link_libraries(opengl glfw3 glad GL X11 m pthread dl rt)
-endif ()
-
-target_link_libraries(opengl glfw3 glad)
+target_link_libraries(opengl PRIVATE glfw glad::glad glm)
