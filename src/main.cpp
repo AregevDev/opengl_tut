@@ -75,9 +75,6 @@ int main() {
     Shader shader("shaders/triangle.glsl");
     shader.bind();
 
-    vao.unbind();
-    shader.unbind();
-
     // assign our uniform with data from the CPU
     float r = 0.0f;
     float inc = 0.05f;
@@ -88,10 +85,7 @@ int main() {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        shader.bind();
         shader.setUniform4f("u_color", r, r, r, 1.0);
-        vao.bind();
-        ibo.bind();
 
         if (r > 1.0f)
             inc = -0.05f;
