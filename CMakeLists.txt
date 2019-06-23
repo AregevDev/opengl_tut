@@ -12,8 +12,9 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 set(CMAKE_TOOLCHAIN_FILE ${VCPKG_PATH}/scripts/buildsystems/vcpkg.cmake)
-set(glad_DIR ~/vcpkg/installed/${TARGET_OS}/share/glad)
-set(glm_DIR ~/vcpkg/installed/${TARGET_OS}/share/glm)
+set(glfw3_DIR ${VCPKG_PATH}/installed/x64-windows-static/share/glfw3)
+set(glad_DIR ${VCPKG_PATH}/installed/${TARGET_OS}/share/glad)
+set(glm_DIR ${VCPKG_PATH}/installed/${TARGET_OS}/share/glm)
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
