@@ -56,7 +56,7 @@ int main() {
             -0.75f, -0.75, /* position 0 */ 0.0f, 0.0f, /* texture coord 0 */
             0.75f, -0.75f, /* position 1 */ 1.0f, 0.0f, /* texture coord 1 */
             0.75f, 0.75f, /* position 2 */ 1.0f, 1.0f, /* texture coord 2 */
-            -0.75f, 0.75f, /* position 3 */ 0.0f, 0.0f /* texture coord 3 */
+            -0.75f, 0.75f, /* position 3 */ 0.0f, 1.0f /* texture coord 3 */
     };
 
     // indexes
@@ -64,6 +64,9 @@ int main() {
             0, 1, 2, // triangle 1
             2, 3, 0 // triangle 2
     };
+
+    GL_CALL(glEnable(GL_BLEND))
+    GL_CALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))
 
     VertexArray vao;
     VertexBuffer vbo(vertices, VERT_COUNT * COMPONENT_COUNT * sizeof(float));
