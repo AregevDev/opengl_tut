@@ -22,8 +22,8 @@ public:
     template<typename T>
     void push(unsigned int count);
 
-    inline const std::vector<VertexBufferElement> getElements() const& { return elements; }
-    inline unsigned int getStride() const { return stride; }
+    [[nodiscard]] std::vector<VertexBufferElement> getElements() const;
+    [[nodiscard]] unsigned int getStride() const;
 };
 
 #endif //OPENGL_TUT_VERTEXBUFFERLAYOUT_H

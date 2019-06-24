@@ -31,3 +31,11 @@ unsigned int VertexBufferElement::getSizeOfType(unsigned int type) {
             return 0;
     }
 }
+
+std::vector<VertexBufferElement> VertexBufferLayout::getElements() const {
+    return elements;
+}
+
+unsigned int VertexBufferLayout::getStride() const {
+    return stride;
+}
