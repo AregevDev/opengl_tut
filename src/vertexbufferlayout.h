@@ -3,25 +3,13 @@
 
 #include <iostream>
 #include <vector>
-#include <glad/glad.h>
 
 struct VertexBufferElement {
     unsigned int type;
     unsigned int count;
     unsigned int normalized;
 
-    static unsigned int getSizeOfType(unsigned int type) {
-        switch (type) {
-            case GL_FLOAT:
-                return 4;
-            case GL_UNSIGNED_INT:
-                return 4;
-            case GL_UNSIGNED_BYTE:
-                return 1;
-            default:
-                return 0;
-        }
-    }
+    static unsigned int getSizeOfType(unsigned int type);
 };
 
 class VertexBufferLayout {

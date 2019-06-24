@@ -8,11 +8,11 @@
 #include <fstream>
 #include <string>
 
+#include "renderer.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
 #include "vertexarray.h"
 #include "shader.h"
-#include "renderer.h"
 
 const int VERT_COUNT = 4;
 const int IND_COUNT = 6;

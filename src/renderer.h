@@ -4,6 +4,7 @@
 #include "vertexarray.h"
 #include "indexbuffer.h"
 #include "shader.h"
+#include <glad/glad.h>
 
 class Renderer {
 private:
