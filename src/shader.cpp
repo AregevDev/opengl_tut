@@ -1,6 +1,8 @@
 #include "shader.h"
 #include "renderer.h"
+
 #include <glad/glad.h>
+
 #include <utility>
 
 Shader::Shader(std::string filepath) : filepath(std::move(filepath)), shaderSource(parseShader()) {

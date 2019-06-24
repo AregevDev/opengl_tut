@@ -1,5 +1,10 @@
+#include "renderer.h"
+#include "vertexbuffer.h"
+#include "indexbuffer.h"
+#include "vertexarray.h"
+#include "shader.h"
+
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -8,12 +13,6 @@
 #include <fstream>
 #include <string>
 #include <stdexcept>
-
-#include "renderer.h"
-#include "vertexbuffer.h"
-#include "indexbuffer.h"
-#include "vertexarray.h"
-#include "shader.h"
 
 const int VERT_COUNT = 4;
 const int IND_COUNT = 6;
