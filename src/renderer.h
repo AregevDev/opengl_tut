@@ -6,17 +6,17 @@
 #include "shader.h"
 #include <glad/glad.h>
 
-#define GL_CALL(x) clearError(); x; logCall();
+#define GL_CALL(x) clearError(); x; logCall(#x, __FILE__, __LINE__);
 
 static void clearError() {
     while (glGetError() != GL_NO_ERROR);
 }
 
-static bool logCall() {
+static bool logCall(const char *func, const char *file, int line) {
     GLenum errcode = glGetError();
     if (errcode) {
         std::ostringstream message;
-        message << "OpenGL Error, code = " << errcode << std::endl;
+        message << "OpenGL Error, code = " << errcode << " at function " << func << " [" << file << ":" << line << "]" << std::endl;
         throw std::runtime_error(message.str());
     }
 
