@@ -1,6 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <stb_image.h>
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -87,8 +89,8 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         glfwSetWindowSizeCallback(window, resizeCallback);
         renderer.clearBackground(0.0f, 0.0f, 0.0f, 1.0f);
-
         shader.setUniform4f("u_color", r, r, r, 1.0);
+
         if (r > 1.0f)
             inc = -0.05f;
         else if (r < 0.0f)

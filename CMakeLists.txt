@@ -20,8 +20,8 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
-add_executable(opengl src/main.cpp src/vertexbuffer.cpp src/vertexbuffer.h src/indexbuffer.cpp src/indexbuffer.h src/vertexarray.h src/vertexbufferlayout.h src/vertexarray.cpp src/vertexbufferlayout.cpp src/shader.cpp src/shader.h src/renderer.h src/renderer.cpp)
-
 configure_file(${CMAKE_SOURCE_DIR}/shaders/triangle.glsl ${PROJECT_BINARY_DIR}/shaders/triangle.glsl COPYONLY)
 
+add_executable(opengl src/main.cpp src/vertexbuffer.cpp src/vertexbuffer.h src/indexbuffer.cpp src/indexbuffer.h src/vertexarray.h src/vertexbufferlayout.h src/vertexarray.cpp src/vertexbufferlayout.cpp src/shader.cpp src/shader.h src/renderer.h src/renderer.cpp src/texture.cpp src/texture.h)
+target_include_directories(opengl PRIVATE ${VCPKG_PATH}/installed/${TARGET_OS}/share/include)
 target_link_libraries(opengl PRIVATE glfw glad::glad glm)

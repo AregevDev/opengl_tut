@@ -2,7 +2,7 @@
 
 #include <utility>
 
-Shader::Shader(std::string filepath) : filepath(std::move(filepath)), rendererID(0), shaderSource(parseShader()) {
+Shader::Shader(std::string filepath) : filepath(std::move(filepath)), shaderSource(parseShader()) {
     rendererID = createShader(shaderSource.vertexSource, shaderSource.fragmentSource);
 }
 

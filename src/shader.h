@@ -17,7 +17,7 @@ struct ShaderSource {
 class Shader {
 private:
     std::string filepath;
-    unsigned int rendererID;
+    unsigned int rendererID{};
     ShaderSource shaderSource;
     std::unordered_map<std::string, int> locationCache;
 
