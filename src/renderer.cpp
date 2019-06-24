@@ -4,7 +4,7 @@ void Renderer::draw(const VertexArray &vao, const IndexBuffer &ibo, const Shader
     shader.bind();
     vao.bind();
     ibo.bind();
-    GL_CALL(glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_INT, nullptr))
+    GL_CALL(glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, nullptr))
 }
 
 void Renderer::clearBackground(float r, float g, float b, float a) const {
