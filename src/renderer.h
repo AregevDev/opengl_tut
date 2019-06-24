@@ -16,7 +16,7 @@ static bool logCall(const char *func, const char *file, int line) {
     GLenum errcode = glGetError();
     if (errcode) {
         std::ostringstream message;
-        message << "OpenGL Error, code = " << errcode << " at function " << func << " [" << file << ":" << line << "]" << std::endl;
+        message << "OpenGL Error, code = " << "0x" << std::hex << errcode << std::dec << " at function " << func << " [" << file << ":" << line << "]" << std::endl;
         throw std::runtime_error(message.str());
     }
 
