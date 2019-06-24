@@ -5,7 +5,7 @@
 
 #include <utility>
 
-Shader::Shader(std::string filepath) : filepath(std::move(filepath)), shaderSource(parseShader()) {
+Shader::Shader(const std::string &filepath) : filepath(filepath), shaderSource(parseShader()) {
     rendererID = createShader(shaderSource.vertexSource, shaderSource.fragmentSource);
 }
 
@@ -23,6 +23,14 @@ void Shader::unbind() const {
 
 void Shader::setUniform4f(const std::string &name, float v0, float v1, float v2, float v3) {
     GL_CALL(glUniform4f(getUniformLocation(name), v0, v1, v2, v3))
+}
+
+void Shader::setUniform1f(const std::string &name, float v0) {
+    GL_CALL(glUniform1f(getUniformLocation(name), v0))
+}
+
+void Shader::setUniform1i(const std::string &name, int v0) {
+    GL_CALL(glUniform1i(getUniformLocation(name), v0))
 }
 
 int Shader::getUniformLocation(const std::string &name) {

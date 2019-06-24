@@ -25,13 +25,15 @@ private:
     ShaderSource parseShader();
     unsigned int createShader(const std::string &vertexShader, const std::string &fragmentShader);
 public:
-    explicit Shader(std::string filepath);
+    explicit Shader(const std::string &filepath);
     ~Shader();
 
     void bind() const;
     void unbind() const;
 
     void setUniform4f(const std::string &name, float v0, float v1, float v2, float v3);
+    void setUniform1f(const std::string &name, float v0);
+    void setUniform1i(const std::string &name, int v0);
 };
 
 #endif //OPENGL_TUT_SHADER_H
