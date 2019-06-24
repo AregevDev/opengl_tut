@@ -7,19 +7,20 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+#include <stdexcept>
 
+#include "renderer.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
 #include "vertexarray.h"
 #include "shader.h"
-#include "renderer.h"
 
 const int VERT_COUNT = 4;
 const int IND_COUNT = 6;
 const int COMPONENT_COUNT = 2;
 
 void resizeCallback(GLFWwindow *window, int width, int height) {
-    glViewport(0, 0, width, height);
+    GL_CALL(glViewport(0, 0, width, height))
 }
 
 int main() {

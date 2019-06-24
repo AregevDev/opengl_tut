@@ -1,8 +1,6 @@
 #ifndef OPENGL_TUT_SHADER_H
 #define OPENGL_TUT_SHADER_H
 
-#include <glad/glad.h>
-
 #include <string>
 #include <iostream>
 #include <fstream>

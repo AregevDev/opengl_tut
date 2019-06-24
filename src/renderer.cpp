@@ -4,10 +4,10 @@ void Renderer::draw(const VertexArray &vao, const IndexBuffer &ibo, const Shader
     shader.bind();
     vao.bind();
     ibo.bind();
-    glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, nullptr);
+    GL_CALL(glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_INT, nullptr))
 }
 
 void Renderer::clearBackground(float r, float g, float b, float a) const {
-    glClearColor(r, g, b, a);
-    glClear(GL_COLOR_BUFFER_BIT);
+    GL_CALL(glClearColor(r, g, b, a))
+    GL_CALL(glClear(GL_COLOR_BUFFER_BIT))
 }
