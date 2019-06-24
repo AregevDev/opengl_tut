@@ -9,7 +9,7 @@ class Renderer {
 private:
 
 public:
-    static void draw(const VertexArray &vao, const IndexBuffer &ibo, const Shader &shader);
+    void draw(const VertexArray &vao, const IndexBuffer &ibo, const Shader &shader);
     void clearBackground(float r, float g, float b, float a) const;
 };
 
