@@ -12,7 +12,7 @@ public:
     void bind() const;
     void unbind() const;
 
-    inline unsigned int getCount();
+    [[nodiscard]] unsigned int getCount() const;
 };
 
 #endif //OPENGL_TUT_INDEXBUFFER_H

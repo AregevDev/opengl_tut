@@ -10,6 +10,7 @@
 #include "indexbuffer.h"
 #include "vertexarray.h"
 #include "shader.h"
+#include "renderer.h"
 
 const int VERT_COUNT = 4;
 const int IND_COUNT = 6;
@@ -75,6 +76,9 @@ int main() {
     Shader shader("shaders/triangle.glsl");
     shader.bind();
 
+    // create renderer used for drawing
+    Renderer renderer;
+
     // assign our uniform with data from the CPU
     float r = 0.0f;
     float inc = 0.05f;
@@ -82,20 +86,16 @@ int main() {
     // main loop
     while (!glfwWindowShouldClose(window)) {
         glfwSetWindowSizeCallback(window, resizeCallback);
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        renderer.clearBackground(0.0f, 0.0f, 0.0f, 1.0f);
 
         shader.setUniform4f("u_color", r, r, r, 1.0);
-
         if (r > 1.0f)
             inc = -0.05f;
         else if (r < 0.0f)
             inc = 0.05f;
-
         r += inc;
 
-        glDrawElements(GL_TRIANGLES, IND_COUNT, GL_UNSIGNED_INT, nullptr);
-
+        renderer.draw(vao, ibo, shader);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
