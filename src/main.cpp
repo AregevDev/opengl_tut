@@ -18,6 +18,16 @@ const int VERT_COUNT = 4;
 const int IND_COUNT = 6;
 const int COMPONENT_COUNT = 2;
 
+static void clearError() {
+    while (!glGetError());
+}
+
+static void checkError() {
+    while(GLenum err = glGetError()) {
+        std::cerr << "Err: " << err << "." << std::endl;
+    }
+}
+
 void resizeCallback(GLFWwindow *window, int width, int height) {
     glViewport(0, 0, width, height);
 }
@@ -97,7 +107,6 @@ int main() {
             inc = 0.05f;
         r += inc;
 
-        renderer.draw(vao, ibo, shader);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
