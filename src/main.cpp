@@ -3,8 +3,8 @@
 #include "indexbuffer.h"
 #include "vertexarray.h"
 #include "shader.h"
+#include "texture.h"
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -16,7 +16,7 @@
 
 const int VERT_COUNT = 4;
 const int IND_COUNT = 6;
-const int COMPONENT_COUNT = 2;
+const int COMPONENT_COUNT = 4;
 
 void resizeCallback(GLFWwindow *window, int width, int height) {
     GL_CALL(glViewport(0, 0, width, height))
@@ -53,10 +53,10 @@ int main() {
 
     // vertex positions
     float vertices[VERT_COUNT * COMPONENT_COUNT] = {
-            -0.75f, -0.75, // 0
-            0.75f, -0.75f,// 1
-            0.75f, 0.75f, // 2
-            -0.75f, 0.75f // 3
+            -0.75f, -0.75, /* position 0 */ 0.0f, 0.0f, /* texture coord 0 */
+            0.75f, -0.75f, /* position 1 */ 1.0f, 0.0f, /* texture coord 1 */
+            0.75f, 0.75f, /* position 2 */ 1.0f, 1.0f, /* texture coord 2 */
+            -0.75f, 0.75f, /* position 3 */ 0.0f, 0.0f /* texture coord 3 */
     };
 
     // indexes
@@ -68,7 +68,8 @@ int main() {
     VertexArray vao;
     VertexBuffer vbo(vertices, VERT_COUNT * COMPONENT_COUNT * sizeof(float));
     VertexBufferLayout layout;
-    layout.push<float>(COMPONENT_COUNT);
+    layout.push<float>(2);
+    layout.push<float>(2);
     vao.addBuffer(vbo, layout);
 
     // create IBO
@@ -77,6 +78,10 @@ int main() {
     // shaders
     Shader shader("shaders/triangle.glsl");
     shader.bind();
+
+    Texture texture("textures/tex.png");
+    texture.bind();
+    shader.setUniform1i("u_texture", 0);
 
     // create renderer used for drawing
     Renderer renderer;
