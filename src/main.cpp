@@ -90,14 +90,14 @@ int main() {
     Renderer renderer;
 
     // assign our uniform with data from the CPU
-    float r = 0.0f;
+    float r = 1.0f;
     float inc = 0.05f;
 
     // main loop
     while (!glfwWindowShouldClose(window)) {
         glfwSetWindowSizeCallback(window, resizeCallback);
         renderer.clearBackground(0.0f, 0.0f, 0.0f, 1.0f);
-        shader.setUniform4f("u_color", r, r, r, 1.0);
+        shader.setUniform4f("u_color", 1.0, 1.0, 1.0, r);
 
         if (r > 1.0f)
             inc = -0.05f;
