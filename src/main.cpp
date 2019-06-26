@@ -7,6 +7,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -35,7 +37,7 @@ int main() {
     }
 
     // crate window
-    GLFWwindow *window = glfwCreateWindow(500, 500, "window", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(1280, 720, "window", nullptr, nullptr);
     if (!window) {
         std::cerr << "Could not create GLFW window" << std::endl;
         return -1;
@@ -81,6 +83,9 @@ int main() {
     // shaders
     Shader shader("shaders/triangle.glsl");
     shader.bind();
+
+    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    shader.setUniformMat4f("u_mvp", proj);
 
     Texture texture("textures/tex.png");
     texture.bind();
