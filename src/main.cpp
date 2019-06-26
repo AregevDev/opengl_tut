@@ -37,7 +37,7 @@ int main() {
     }
 
     // crate window
-    GLFWwindow *window = glfwCreateWindow(848, 480, "window", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(800, 600, "window", nullptr, nullptr);
     if (!window) {
         std::cerr << "Could not create GLFW window" << std::endl;
         return -1;
@@ -55,10 +55,10 @@ int main() {
 
     // vertex positions
     float vertices[VERT_COUNT * COMPONENT_COUNT] = {
-            -0.75f, -0.75, /* position 0 */ 0.0f, 0.0f, /* texture coord 0 */
-            0.75f, -0.75f, /* position 1 */ 1.0f, 0.0f, /* texture coord 1 */
-            0.75f, 0.75f, /* position 2 */ 1.0f, 1.0f, /* texture coord 2 */
-            -0.75f, 0.75f, /* position 3 */ 0.0f, 1.0f /* texture coord 3 */
+            0.0f, 0.0f, /* position 0 */ 0.0f, 0.0f, /* texture coord 0 */
+            300.0f, 0.0f, /* position 1 */ 1.0f, 0.0f, /* texture coord 1 */
+            300.0f, 300.0f, /* position 2 */ 1.0f, 1.0f, /* texture coord 2 */
+            0.0f, 300.0f, /* position 3 */ 0.0f, 1.0f /* texture coord 3 */
     };
 
     // indexes
@@ -83,10 +83,9 @@ int main() {
     // shaders
     Shader shader("shaders/triangle.glsl");
     shader.bind();
+    shader.setUniform4f("u_color", 0.0, 1.0, 1.0, 1.0);
 
-    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -3.125f, 1.125f, -1.0f, 1.0f);
-    shader.setUniform4f("u_color", 1.0, 1.0, 1.0, 1.0);
-    shader.setUniformMat4f("u_mvp", proj);
+    glm::mat4 proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
 
     Texture texture("textures/tex.png");
     texture.bind();
@@ -96,18 +95,19 @@ int main() {
     Renderer renderer;
 
     // assign our uniform with data from the CPU
-    float r = 1.0f;
-    float inc = 0.05f;
+    float r = 1.0f, inc = 0.005f;
+    double mouseX, mouseY;
 
     // main loop
     while (!glfwWindowShouldClose(window)) {
         glfwSetWindowSizeCallback(window, resizeCallback);
+        glfwGetCursorPos(window, &mouseX, &mouseY);
         renderer.clearBackground(0.0f, 0.0f, 0.0f, 1.0f);
 
-        if (r > 1.0f)
-            inc = -0.05f;
-        else if (r < 0.0f)
-            inc = 0.05f;
+        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-mouseX, mouseY, 0.0f));
+        glm::mat4 mvp = proj * view;
+        shader.setUniformMat4f("u_mvp", mvp);
+
         r += inc;
 
         renderer.draw(vao, ibo, shader);
