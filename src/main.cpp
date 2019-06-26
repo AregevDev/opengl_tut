@@ -37,7 +37,7 @@ int main() {
     }
 
     // crate window
-    GLFWwindow *window = glfwCreateWindow(1280, 720, "window", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(848, 480, "window", nullptr, nullptr);
     if (!window) {
         std::cerr << "Could not create GLFW window" << std::endl;
         return -1;
@@ -84,7 +84,8 @@ int main() {
     Shader shader("shaders/triangle.glsl");
     shader.bind();
 
-    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -3.125f, 1.125f, -1.0f, 1.0f);
+    shader.setUniform4f("u_color", 1.0, 1.0, 1.0, 1.0);
     shader.setUniformMat4f("u_mvp", proj);
 
     Texture texture("textures/tex.png");
@@ -102,7 +103,6 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         glfwSetWindowSizeCallback(window, resizeCallback);
         renderer.clearBackground(0.0f, 0.0f, 0.0f, 1.0f);
-        shader.setUniform4f("u_color", 1.0, 1.0, 1.0, r);
 
         if (r > 1.0f)
             inc = -0.05f;
